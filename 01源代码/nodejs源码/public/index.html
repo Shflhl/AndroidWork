@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <style type="text/css">
+        li{
+            list-style: none;
+            display: inline-block;
+        }
+        li img{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="img of images">
+            <img :src="'images/'+img" alt="" width="300px">
+        </li>
+    </ul>
+</div>
+
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            images:[]
+        },
+        created(){
+            fetch("/img/files",{method:'GET'})
+                .then(res=>res.json())
+                .then(files=>{
+                    this.images.push(...files)
+                })
+        }
+    })
+</script>
+</body>
+</html>
